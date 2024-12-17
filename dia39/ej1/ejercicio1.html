@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+</head>
+
+<body>
+    <div id="container">
+        <button data-page="1.html"> Contenido 1 </button>
+        <button data-page="2.html"> Contenido 2 </button>
+    </div>
+
+    <p>
+        Hola
+    </p>
+</body>
+
+<style>
+    #container {
+        height: 50px;
+        width: 100vw;
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+        border: 2px solid;
+        height: 100px;
+    }
+</style>
+
+<script defer>
+    let buttons = document.querySelectorAll('button');
+    let p = document.querySelector("p");
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', clickButton);
+    });
+
+    function clickButton(e) {
+        fetch(e.target.dataset.page)
+            .then(data => data.text())
+            .then(data => p.innerHTML = data)
+    }
+
+</script>
+
+</html>

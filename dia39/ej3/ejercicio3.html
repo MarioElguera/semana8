@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+</head>
+
+<body>
+    <div id="container">
+        <p></p>
+    </div>
+</body>
+
+<script>
+    const url = "https://www.el-tiempo.net/api/json/v2/provincias/41/municipios/41001";
+    let p = document.querySelector('p');
+
+    fetch(url)
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            temp = `Temperatura => ${res.temperatura_actual} º <br>`
+            humedad = `Temperatura => ${res.humedad} º`
+            p.innerHTML += temp + humedad
+        })
+</script>
+
+</html>
