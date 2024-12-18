@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Ejercicio 2</h1>
+        <p></p>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr>
+    <div id="ejercicio3">
+        <h1>Ejercicio 3</h1>
+        <input id="txtPelicula" type="text">
+        <button id="btnSearchMovie">
+            buscar pelicula
+        </button>
+        <p id="movieList"></p>
+    </div>
+</body>
+
+<style>
+    img {
+        width: 200px;
+    }
+</style>
+
+<script>
+    const url = "https://www.el-tiempo.net/api/json/v2/provincias/41/municipios/41001";
+    let p = document.querySelector('p');
+
+    fetch(url)
+        .then(res => res.json())
+        .then(res => {
+            temp = `Temperatura => ${res.temperatura_actual} º <br>`
+            humedad = `Temperatura => ${res.humedad} º`
+            p.innerHTML += temp + humedad
+        })
+
+
+    let txtValue = document.getElementById('txtPelicula');
+    let btnSearchMovie = document.getElementById('btnSearchMovie');
+    let movieList = document.getElementById('movieList');
+
+    btnSearchMovie.addEventListener('click', function () {
+        movieList.innerHTML = "";
+        fetch(`https://api.themoviedb.org/3/search/movie?query=` + txtValue.value, {
+            method: "GET",
+            headers: { "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NTUwMzA0NDUzNzg1MGNlNWY3OGY5ZjUwOThjNzVjNCIsIm5iZiI6MTczNDQ1ODExMC42MTksInN1YiI6IjY3NjFiYWZlZWQyNmE5ZDJkOGRmZTExMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ok29UicAMLyCxOTRSK5GZw4rG3-7Xk6DW1pLZXGtMMU" }
+        })
+            .then(res => res.json())
+            .then(json => {
+                json.results.forEach(movie => {
+                    if (movie.original_language == 'en') {
+                        movieList.innerHTML += `<li>${movie.original_title}</li><img src="https://image.tmdb.org/t/p/w500/${movie.backdrop_path}">`
+                    }
+                });
+                txtValue.value = "";
+            })
+    });
+
+</script>
+
+</html>
