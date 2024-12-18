@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios</title>
+</head>
+
+<body>
+
+    <button id="btnAlert1">Mostrar alert 1</button>
+    <br>
+    <hr>
+    <button id="btnAlert2">Mostrar alert 2</button>
+    <br>
+    <hr>
+    <input type="text" id="txtNombre">
+    <button id="btnAlert3">Grabar en session storage</button>
+</body>
+
+<script>
+    // Ejercicio 1
+    const btn1 = document.getElementById("btnAlert1");
+    btn1.addEventListener('click', function () {
+        setTimeout(() => {
+            alert("Hola => setTimeOut")
+        }, 3000);
+    });
+
+    // Ejercicio 2
+    const btn2 = document.getElementById("btnAlert2");
+    btn2.addEventListener('click', function () {
+        setInterval(() => {
+            alert("Hola => setInterval")
+        }, 2000);
+    });
+
+    // Ejercicio 3
+    const btn3 = document.getElementById("btnAlert3");
+    const txtNombre = document.getElementById('txtNombre');
+
+    btn3.addEventListener('click', function () {
+        if (localStorage.getItem('nombre') == '') {
+            localStorage.setItem('nombre', txtNombre.value);
+            sessionStorage.setItem('nombre', txtNombre.value);
+
+        } else {
+            const nombre = localStorage.getItem('nombre');
+            const nombre2 = sessionStorage.getItem('nombre');
+            console.log("Hola, ", nombre.toString());
+            alert("Hola, ", nombre.toString());
+        }
+    });
+
+</script>
+
+</html>
