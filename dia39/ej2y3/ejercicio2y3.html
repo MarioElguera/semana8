@@ -23,13 +23,28 @@
         <button id="btnSearchMovie">
             buscar pelicula
         </button>
-        <p id="movieList"></p>
+        <div id="containerMovies">
+        </div>
     </div>
 </body>
 
 <style>
-    img {
-        width: 200px;
+    #ejercicio3 {
+        text-align: center;
+
+        img {
+            width: 200px;
+        }
+
+        #containerMovies {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #movieDiv {
+            text-align: center;
+            padding: 20px;
+        }
     }
 </style>
 
@@ -48,19 +63,19 @@
 
     let txtValue = document.getElementById('txtPelicula');
     let btnSearchMovie = document.getElementById('btnSearchMovie');
-    let movieList = document.getElementById('movieList');
+    let containerMovies = document.getElementById('containerMovies');
 
     btnSearchMovie.addEventListener('click', function () {
-        movieList.innerHTML = "";
+        containerMovies.innerHTML = "";
         fetch(`https://api.themoviedb.org/3/search/movie?query=` + txtValue.value, {
             method: "GET",
             headers: { "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NTUwMzA0NDUzNzg1MGNlNWY3OGY5ZjUwOThjNzVjNCIsIm5iZiI6MTczNDQ1ODExMC42MTksInN1YiI6IjY3NjFiYWZlZWQyNmE5ZDJkOGRmZTExMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ok29UicAMLyCxOTRSK5GZw4rG3-7Xk6DW1pLZXGtMMU" }
         })
             .then(res => res.json())
             .then(json => {
-                json.results.forEach(movie => {
+                json.results.forEach((movie, index) => {
                     if (movie.original_language == 'en') {
-                        movieList.innerHTML += `<li>${movie.original_title}</li><img src="https://image.tmdb.org/t/p/w500/${movie.backdrop_path}">`
+                        containerMovies.innerHTML += ` <div id="movieDiv"><p>${movie.original_title}</p><img src="https://image.tmdb.org/t/p/w500/${movie.backdrop_path}"></div>`
                     }
                 });
                 txtValue.value = "";
