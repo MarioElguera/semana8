@@ -16,7 +16,12 @@
     <br>
     <hr>
     <input type="text" id="txtNombre">
-    <button id="btnAlert3">Grabar en session storage</button>
+    <br>
+    <button id="btnAlert3">Show Alert</button>
+    <br>
+    <button id="btnAlert4">Grabar storage</button>
+    <br>
+    <button id="btnAlert5">Clean storage</button>
 </body>
 
 <script>
@@ -37,21 +42,41 @@
     });
 
     // Ejercicio 3
+
+    //Mostrar Alert con el nombre
     const btn3 = document.getElementById("btnAlert3");
     const txtNombre = document.getElementById('txtNombre');
 
-    btn3.addEventListener('click', function () {
-        if (localStorage.getItem('nombre') == '') {
-            localStorage.setItem('nombre', txtNombre.value);
-            sessionStorage.setItem('nombre', txtNombre.value);
+    function capitalizarPrimeraLetra(str) {
+        if (str.length === 0) return str;
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 
+    btn3.addEventListener('click', function () {
+        const nombre = localStorage.getItem('nombre');
+        const nombre2 = sessionStorage.getItem('nombre');
+        if (!nombre || !nombre2) {
+            alert("No hay nada grabado en el storage");
         } else {
-            const nombre = localStorage.getItem('nombre');
-            const nombre2 = sessionStorage.getItem('nombre');
-            console.log("Hola, ", nombre);
-            alert("Hola, ", nombre);
+            alert("Hola, " + capitalizarPrimeraLetra(nombre));
         }
     });
+
+    // Grabar nombre en el storage
+    const btn4 = document.getElementById("btnAlert4");
+    btn4.addEventListener('click', function () {
+        localStorage.setItem('nombre', txtNombre.value);
+        sessionStorage.setItem('nombre', txtNombre.value);
+
+        const nombre = localStorage.getItem('nombre');
+        const nombre2 = sessionStorage.getItem('nombre');
+    });
+
+    //Limpiar storage
+    const btn5 = document.getElementById("btnAlert5");
+    btn5.addEventListener('click', function () {
+        localStorage.removeItem('nombre');
+    })
 
 </script>
 
